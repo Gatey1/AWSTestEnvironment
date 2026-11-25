@@ -1,0 +1,26 @@
+# Allow-list: Git ignores everything here except the paths named below.
+# The Terraform files, build.py and the console scripts with real values
+# (user-data.sh, user-data.b64) stay on this machine only.
+/*
+!/.gitignore
+!/.gitattributes
+!/README.md
+!/app/
+!/docs/
+!/console/
+/console/*
+!/console/user-data.example.sh
+!/console/update-server.sh
+
+__pycache__/
+*.pyc
+*.b64
+
+# Belt and braces, in case one of these is ever moved into an allowed folder.
+*.tf
+*.tftpl
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.example
+.terraform/
