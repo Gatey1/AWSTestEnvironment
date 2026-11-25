@@ -52,36 +52,6 @@ attempt goes to CloudWatch, and an email alarm fires on repeated failed logins.
 6. **CloudWatch**: log groups, metric filters on the auth log, the failed-login alarm, and an SNS topic
    with an email subscription.
 
-## Files
-
-| Path | What it is |
-|---|---|
-| `app/app.py` | The Flask app: pages, sessions, database access and audit logging |
-| `app/create_user.py` | Creates a user from the server's shell (`sudo webapp-create-user <name>`) |
-| `console/user-data.example.sh` | The first-boot script: installs the app, nginx and the CloudWatch agent |
-| `console/update-server.sh` | Paste into a Session Manager shell to update a running server's app and logging |
-| `docs/architecture.html` | The architecture page |
-| `docs/architecture.svg` | The diagram on its own |
-
-### Using the user data script
-
-Set `AWS_REGION` (a region code such as `ap-southeast-2`, not an Availability Zone),
-`DB_HOST` (the RDS endpoint) and `DB_SECRET_ARN` in `console/user-data.example.sh`.
-The script is over EC2's 16 KB user data limit, so compress it first:
-
-```bash
-gzip -9 -c console/user-data.example.sh | base64 -w0 > user-data.b64
-```
-
-Paste the contents of `user-data.b64` into **Advanced details → User data** and tick
-**"User data has already been base64 encoded"**.
-
-## Cost
-
-The EC2 instance, the RDS instance, the public IPv4 address and Secrets Manager come to roughly
-US$25–30 a month if left running. New accounts on the AWS Free plan get credits that cover this
-for a while. When you are done, delete the EC2 instance, the RDS database (which removes its secret), any Elastic IP,
-the VPC and the log groups.
 
 ## What I would change for production
 
@@ -92,4 +62,4 @@ the VPC and the log groups.
 - AWS WAF rate limits on the login and sign-up routes.
 - Rebuild the whole environment as infrastructure as code, and ship releases through a pipeline.
 
-This is a personal learning project. Account IDs, addresses and endpoints are left out on purpose.
+
