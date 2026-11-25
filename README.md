@@ -6,11 +6,9 @@ attempt goes to CloudWatch, and an email alarm fires on repeated failed logins.
 
 ![Architecture: visitors reach an EC2 web server in a public subnet through the internet gateway; the web server talks to RDS PostgreSQL in private subnets; Secrets Manager, Session Manager, CloudWatch and SNS sit beside the VPC](docs/architecture.svg)
 
-The full write-up, with the login flow, security controls and production next steps, is in
-[`docs/architecture.html`](docs/architecture.html). Once GitHub Pages is enabled it is also served
-at `https://<your-user>.github.io/<repo>/architecture.html`.
 
-## At a glance
+
+## Access points
 
 | | |
 |---|---|
@@ -22,7 +20,7 @@ at `https://<your-user>.github.io/<repo>/architecture.html`.
 ## What it does
 
 - A public landing page, plus sign-up and login.
-- An account page where each user saves a favourite sport and a favourite car colour, and sees only their own data.
+- An account page where each user saves a data, and sees only their own data.
   Every query uses the user ID from the signed session, never one the browser sends.
 - Passwords are stored as salted hashes, every form carries a CSRF token, and all SQL is parameterised.
 - nginx logs every request as JSON. The app logs sign-ups, logins (success or failure, with the reason) and logouts.
