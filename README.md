@@ -56,8 +56,7 @@ attempt goes to CloudWatch, and an email alarm fires on repeated failed logins.
 ## What I would change for production
 
 - HTTPS through an Application Load Balancer with an ACM certificate.
-- Move the web server into the private subnets behind the load balancer, with VPC endpoints for AWS APIs.
-- An Auto Scaling group and Multi-AZ RDS, with deletion protection on.
+- An Auto Scaling group with deletion protection on.
 - A least-privilege database role for the app instead of the master user.
 - AWS WAF rate limits on the login and sign-up routes.
 - Rebuild the whole environment as infrastructure as code, and ship releases through a pipeline.
